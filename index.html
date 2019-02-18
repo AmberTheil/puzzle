@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puzzle</title>
+    <style>
+      #container {
+        display: grid;
+        background-color: beige;
+        /*            width :200px;*/
+      }
+      .piece {
+        outline: 0.5px solid grey;
+      }
+    </style>
+  </head>
+
+  <body>
+    <img src="" alt="" />
+    <div id="container"></div>
+
+    <script>
+      let container_width;
+      let container_height;
+      const imageAddress =
+        "https://i0.wp.com/www.developermemes.com/wp-content/uploads/2014/07/Wastes-2-Hours-Debugging-Broken-Javascript-Missing-A-Curly-Brace-Developer-Meme.jpg";
+      document.addEventListener("DOMContentLoaded", loadTheImage);
+
+      function loadTheImage() {
+        document.querySelector("img").src = imageAddress;
+        document.querySelector("img").onload = theImageHasLoaded;
+      }
+      function theImageHasLoaded() {
+        console.log(
+          "THE IMAGE HAS LOADED nat width ",
+          document.querySelector("img").naturalWidth
+        );
+        container_width = document.querySelector("img").naturalWidth;
+        container_height = document.querySelector("img").naturalHeight;
+        createDropZones();
+      }
+
+      const numOfXPieces = 4;
+      const numOfYPieces = 4;
+      function createDropZones() {
+        document.querySelector(
+          "#container"
+        ).style.gridTemplateColumns = `repeat(${numOfXPieces}, 1fr)`;
+        document.querySelector(
+          "#container"
+        ).style.width = `${container_width}px`;
+        for (let y = 0; y < numOfYPieces; y++) {
+          for (let x = 0; x < numOfXPieces; x++) {
+            let piece = document.createElement("div");
+            piece.style.height = container_height / numOfYPieces + "px";
+            piece.textContent = `${x}${y}`;
+            piece.classList.add("piece");
+            document.querySelector("#container").appendChild(piece);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
